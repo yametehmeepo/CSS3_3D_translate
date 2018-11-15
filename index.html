@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name='viewport' content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>css3-3D效果之translate</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.box{
+			perspective: 800px;
+			perspective-origin: 50% 50%;
+			transform-style: perserve-3d;
+		}
+		#inner{
+			width: 200px;
+			height: 200px;
+			margin: 200px auto 0 ;
+			background: blue;
+
+			
+			/*transform: translateY(45deg);*/
+		}
+		.rangewrap{
+			position: relative;
+		}
+		.rangewrap a{
+			display: block;
+			position: absolute;
+			width: 45px;
+			right: -50px;
+			top: 50%;
+			transform: translateY(-50%);
+			text-align: center;
+			font-size: 14px;
+			line-height: 30px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			color: #000;
+			text-decoration: none;
+		}
+		.rangewrap a:hover{
+			background: #eee;
+		}
+		.range{
+			display: block;
+			width: 100%;
+			height: 40px;
+			margin: 0 auto;
+			cursor: pointer;
+		}
+		.controller{
+			 position: fixed;
+			bottom: 20px;
+			left: 0;
+			right: 0; 
+			margin: 0 auto;
+			max-width: 500px;
+			padding: 0 50px;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="box">
+			<div id="inner"></div>
+		</div>
+		<div class="controller">
+			<div class="translate">translate x: <span id="translate1">0</span> px</div>
+			<div class="rangewrap">
+				<input type="range" id="range1" class="range" min="-200" max="200" step="1" value="0"><a href="javascript:;" id="restore1">重置</a>
+			</div>
+			<div>
+			<div class="translate">translate y: <span id="translate2">0</span> px</div>
+			<div class="rangewrap">
+				<input type="range" id="range2" class="range" min="-200" max="200" step="1" value="0"><a href="javascript:;" id="restore2">重置</a>
+			</div>
+			<div class="translate">translate z: <span id="translate3">0</span> px</div>
+			<div class="rangewrap">
+				<input type="range" id="range3" class="range" min="-200" max="200" step="1" value="0"><a href="javascript:;" id="restore3">重置</a>
+			</div>
+		</div>
+	</div>
+	<script>
+		window.onload = function(){
+			var range1 = document.getElementById('range1')
+			var range2 = document.getElementById('range2')
+			var range3 = document.getElementById('range3')
+			var inner = document.getElementById('inner')
+			var restore1 = document.getElementById('restore1')
+			var restore2 = document.getElementById('restore2')
+			var restore3 = document.getElementById('restore3')
+			var translate1 = document.getElementById('translate1')
+			var translate2 = document.getElementById('translate2')
+			var translate3 = document.getElementById('translate3')
+			range1.addEventListener('mousemove', function(e){
+				//console.log('range1.value:', inner.style.transform)
+				var v1 = range1.value
+				var v2 = range2.value
+				var v3 = range3.value
+				inner.style.transform = 'translateX(' + v1 + 'px)' + 'translateY(' + v2 + 'px)' + 'translateZ(' + v3 + 'px)'
+				translate1.innerHTML = v1
+			})
+			range2.addEventListener('mousemove', function(e){
+				var v1 = range1.value
+				var v2 = range2.value
+				var v3 = range3.value
+				inner.style.transform = 'translateX(' + v1 + 'px)' + 'translateY(' + v2 + 'px)' + 'translateZ(' + v3 + 'px)'
+				translate2.innerHTML = v2
+			})
+			range3.addEventListener('mousemove', function(e){
+				var v1 = range1.value
+				var v2 = range2.value
+				var v3 = range3.value
+				inner.style.transform = 'translateX(' + v1 + 'px)' + 'translateY(' + v2 + 'px)' + 'translateZ(' + v3 + 'px)'
+				translate3.innerHTML = v3
+			})
+			restore1.onclick = function(e){
+				var v2 = range2.value
+				var v3 = range3.value
+				inner.style.transform = 'translateX(0px)' + 'translateY(' + v2 + 'px)' + 'translateZ(' + v3 + 'px)'
+				range1.value = 0
+				translate1.innerHTML = 0
+			}
+			restore2.onclick = function(e){
+				var v1 = range1.value
+				var v3 = range3.value
+				inner.style.transform = 'translateX(' + v1 + 'px)' + 'translateY(0px)' + 'translateZ(' + v3 + 'px)'
+				range2.value = 0
+				translate2.innerHTML = 0
+			}
+			restore3.onclick = function(e){
+				var v1 = range1.value
+				var v2 = range2.value
+				inner.style.transform = 'translateX(' + v1 + 'px)' + 'translateY(' + v2 + 'px)' + 'translateZ(0px)'
+				range3.value = 0
+				translate3.innerHTML = 0
+			}
+		}
+	</script>
+</body>
+</html>
